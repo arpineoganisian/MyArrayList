@@ -3,11 +3,11 @@ import java.util.Scanner;
 public class Homework01_02 {
     public static void main (String[] args) {
 
-        Scanner in = new Scanner(System.in);
-        String param = in.next();
-        String numbArr = in.next();
-        int numb = Integer.parseInt(numbArr);
-        System.out.println(numb);
+//        Scanner in = new Scanner(System.in);
+//        String param = in.next();
+//        String numbArr = in.next();
+//        int numb = Integer.parseInt(numbArr);
+//        System.out.println(numb);
     }
 }
 
