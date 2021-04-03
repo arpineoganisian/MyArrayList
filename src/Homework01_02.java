@@ -7,3 +7,4 @@ public class Homework01_02 {
         int k = scanner.nextInt();
         System.out.println(numbers.charAt(k - 1));
     }
+}
