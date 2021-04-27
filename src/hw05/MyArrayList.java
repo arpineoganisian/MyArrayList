@@ -40,17 +40,18 @@ public class MyArrayList<T>  {
     }
 
     boolean addAll(int index, Collection<? extends T> c) {
-        int newSize = size + c.size();
+        Object o[] = c.toArray();
+        int newSize = size + o.length;
         while (capacity < newSize)
             array = addCapacity();
         if (index <= size+1 && index >= 0) {
-            for (int i = newSize-1; i > index+c.size(); i--) {
-                array[i] = array[i-c.size()];
+            for (int i = newSize-1; i >= index+o.length; i--) {
+                array[i] = array[i-o.length];
             }
-            for(int i = index; i < capacity; i++) {
-                c[i] = array[i];
-                size++;
+            for(int i = index, j = 0; j < o.length; i++, j++) {
+                array[i] = o[j];
             }
+            size = newSize;
         }
         //EXCEPTION
         return false;
