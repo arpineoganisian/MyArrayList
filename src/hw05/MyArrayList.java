@@ -1,29 +1,106 @@
 package hw05;
 
-//import com.sun.org.apache.xpath.internal.operations.String;
 import java.lang.*;
+import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 
 public class MyArrayList<T>  {
 
     int  size;
-    T[] array;
+    int capacity;
+    Object[] array;
 
     public MyArrayList() {
         size = 0;
-        array = (T[])new Object[10];
+        capacity = 10;
+        array = new Object[capacity];
     }
 
-    public void add(int index, T element) {
-        if (index <= size + 1 && index >= 0) {
+    private Object[] addCapacity() {
+        Object[] newArray = new Object[capacity+10];
+        for(int i = 0; i < capacity; i++) {
+            newArray[i] = array[i];
+        }
+        capacity += 10;
+        return newArray;
+    }
+
+    void add(int index, T element) {
+        if (size == capacity) { array = addCapacity(); }
+        if (index <= size+1 && index >= 0) {
+           for (int i = size; i > index; i--) {
+               array[i] = array[i-1];
+           }
            array[index] = element;
            size++;
         }
-        System.out.println("INDEX IS " + index);
-        System.out.println("ELEMENT IS " + element);
+        //EXCEPTION
     }
+
+    boolean addAll(int index, Collection<? extends T> c) {
+        int newSize = size + c.size();
+        while (capacity < newSize)
+            array = addCapacity();
+        if (index <= size+1 && index >= 0) {
+            for (int i = newSize-1; i > index+c.size(); i--) {
+                array[i] = array[i-c.size()];
+            }
+            for(int i = index; i < capacity; i++) {
+                c[i] = array[i];
+                size++;
+            }
+        }
+        //EXCEPTION
+        return false;
+    }
+
+    T get(int index) {
+//        if (index >= 0 && index < size)
+            return (T)array[index];
+        //EXCEPTION
+    }
+
+    int indexOf(Object o) {
+        for (int i = 0; i < size; i++) {
+            if (o.equals(array[i]))
+                return i;
+        }
+        return -1;
+    }
+
+    public int lastIndexOf(Object o) {
+        for (int i = size-1; i >= 0; i--) {
+            if (o.equals(array[i]))
+                return i;
+        }
+        return -1;
+    }
+
+//    public ListIterator<T> listIterator() {
+//
+//    }
+
+//    public ListIterator<T> listIterator(int index) {
+//
+//    }
+
+//    public T remove(int index) {
+//
+//    }
+
+//    public T set(int index, T element) {
+//
+//    }
+
+//    public List<T> subList(int fromIndex, int toIndex) {
+//
+//    }
 
     public int size() {
         return size;
+        //проверить вывод сразу после инициализации arraylist
     }
 
     @Override
@@ -31,7 +108,8 @@ public class MyArrayList<T>  {
         String result  = "[";
 
         for (int i = 0; i < size; i++){
-            result += array[i].toString() + ", ";
+            result += array[i].toString();
+            if (i != size-1) {result += ", ";}
         }
         result += "]";
         return result;
