@@ -87,13 +87,25 @@ public class MyArrayList<T>  {
 //
 //    }
 
-//    public T remove(int index) {
-//
-//    }
+    public T remove(int index) {
+        T removed = (T)array[index];
+        if (index > 0 && index < size) {
+            for (int i = index; i < size; i++) {
+                array[i] = array[i+1];
+            }
+            size--;
+        }
+        //EXCEPTON
+        return removed;
+    }
 
-//    public T set(int index, T element) {
-//
-//    }
+    public T set(int index, T element) {
+        T removed = (T)array[index];
+        if (index > 0 && index < size)
+            array[index] = element;
+        //IndexOutOfBoundsException
+        return removed;
+    }
 
 //    public List<T> subList(int fromIndex, int toIndex) {
 //

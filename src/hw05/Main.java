@@ -2,15 +2,14 @@ package hw05;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         ArrayList<String> list = new ArrayList<>();
-        MyArrayList<String> list2 = new MyArrayList<>();
-
 //        ArrayList<Integer> list = new ArrayList<>();
-//        MyArrayList<Integer> list2 = new MyArrayList<>();
 
+        System.out.println("SIZE " + list.size());
         list.add(0, "a");
         list.add(1,"b");
         list.add(2, "c");
@@ -19,13 +18,25 @@ public class Main {
         list.add(5, "f");
         list.add(6, "g");
         list.add(7, "h");
-        System.out.println("ORIGINAL " + list);
+        System.out.println("ORIGINAL " + list + " ||| SIZE " + list.size());
         list.addAll(8, new ArrayList<>(Arrays.asList("123", "456", "789")));
-        System.out.println("ORIGINAL " + list);
-        System.out.println("SIZE - " + list.size());
+        System.out.println("ORIGINAL after addAll " + list + " ||| SIZE " + list.size());
+        System.out.println("removed: " + list.remove(10));
+        System.out.println("removed: " + list.remove(5));
+        System.out.println("ORIGINAL after remove " + list + " ||| SIZE " + list.size());
+        System.out.println("set: " + list.set(2, "KEK"));
+        System.out.println("ORIGINAL after set " + list + " ||| SIZE " + list.size());
+        List<String> subList = list.subList(2, 7);
+        System.out.println("ORIGINAL subList " + subList + " ||| SIZE " + subList.size());
+
 
         System.out.println();
 
+
+        MyArrayList<String> list2 = new MyArrayList<>();
+//        MyArrayList<Integer> list2 = new MyArrayList<>();
+
+        System.out.println("SIZE " + list2.size());
         list2.add(0, "a");
         list2.add(1,"b");
         list2.add(2, "c");
@@ -34,11 +45,16 @@ public class Main {
         list2.add(5, "f");
         list2.add(6, "g");
         list2.add(7, "h");
-        System.out.println("MY LIST  " + list2);
+        System.out.println("MY LIST  " + list2 + " ||| SIZE " + list2.size());
         list2.addAll(8, new ArrayList<>(Arrays.asList("123", "456", "789")));
-        System.out.println("MY LIST  " + list2);
-        System.out.println("SIZE - " + list2.size());
-
+        System.out.println("MY LIST   after addAll " + list2 + " ||| SIZE " + list2.size());
+        System.out.println("removed: " + list2.remove(10));
+        System.out.println("removed: " + list2.remove(5));
+        System.out.println("MY LIST  after remove " + list2 + " ||| SIZE " + list2.size());
+        System.out.println("set: " + list2.set(2, "KEK"));
+        System.out.println("ORIGINAL after set " + list2 + " ||| SIZE " + list.size());
+//        List<String> subList2 = list2.subList(2, 7);
+//        System.out.println("MY LIST subList  " + subList2 + " ||| SIZE " + subList2.size());
 
 //        list.add(0, 0);
 //        list.add(1,1);
