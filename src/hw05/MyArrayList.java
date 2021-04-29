@@ -1,25 +1,24 @@
 package hw05;
 
 import java.lang.*;
-import java.util.Collection;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
-public class MyArrayList<T>  {
+public class MyArrayList<T> implements Iterable<T> {
 
-    int  size;
-    int capacity;
-    Object[] array;
+    private int  size;
+    private int capacity;
+    private T array[];
+//    в оригинальном создается Object для совместимости со старыми версиями,
+//    в нашем случае можно этого не делать
 
     public MyArrayList() {
         size = 0;
         capacity = 10;
-        array = new Object[capacity];
+        array = (T[])new Object[capacity];
     }
 
     private Object[] addCapacity() {
-        Object[] newArray = new Object[capacity+10];
+        T newArray[] = (T[])new Object[capacity+10];
         for(int i = 0; i < capacity; i++) {
             newArray[i] = array[i];
         }
@@ -27,8 +26,8 @@ public class MyArrayList<T>  {
         return newArray;
     }
 
-    void add(int index, T element) {
-        if (size == capacity) { array = addCapacity(); }
+    public void add(int index, T element) {
+        if (size == capacity) { array = (T[])addCapacity(); }
         if (index <= size+1 && index >= 0) {
            for (int i = size; i > index; i--) {
                array[i] = array[i-1];
@@ -39,17 +38,17 @@ public class MyArrayList<T>  {
         //EXCEPTION
     }
 
-    boolean addAll(int index, Collection<? extends T> c) {
+    public boolean addAll(int index, Collection<? extends T> c) {
         Object o[] = c.toArray();
         int newSize = size + o.length;
         while (capacity < newSize)
-            array = addCapacity();
+            array = (T[])addCapacity();
         if (index <= size+1 && index >= 0) {
             for (int i = newSize-1; i >= index+o.length; i--) {
                 array[i] = array[i-o.length];
             }
             for(int i = index, j = 0; j < o.length; i++, j++) {
-                array[i] = o[j];
+                array[i] = (T)o[j];
             }
             size = newSize;
         }
@@ -57,13 +56,13 @@ public class MyArrayList<T>  {
         return false;
     }
 
-    T get(int index) {
+    public T get(int index) {
 //        if (index >= 0 && index < size)
             return (T)array[index];
         //EXCEPTION
     }
 
-    int indexOf(Object o) {
+    public int indexOf(Object o) {
         for (int i = 0; i < size; i++) {
             if (o.equals(array[i]))
                 return i;
@@ -79,13 +78,23 @@ public class MyArrayList<T>  {
         return -1;
     }
 
-//    public ListIterator<T> listIterator() {
-//
-//    }
+    public Iterator<T> Iterator() {
+        return new Iterator<T>() {
+            int i = 0;
+            @Override
+            public boolean hasNext() {
+                return size != i;
+            }
 
-//    public ListIterator<T> listIterator(int index) {
-//
-//    }
+            @Override
+            public T next() {
+                if (hasNext()) {
+                    return(get(i++));
+                }
+                else throw new NoSuchElementException("No elements" + size);
+            }
+        };
+    }
 
     public T remove(int index) {
         T removed = (T)array[index];
@@ -107,13 +116,8 @@ public class MyArrayList<T>  {
         return removed;
     }
 
-//    public List<T> subList(int fromIndex, int toIndex) {
-//
-//    }
-
     public int size() {
         return size;
-        //проверить вывод сразу после инициализации arraylist
     }
 
     @Override
@@ -126,5 +130,24 @@ public class MyArrayList<T>  {
         }
         result += "]";
         return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof MyArrayList) {
+            MyArrayList list = (MyArrayList) obj;
+            if (this.size != list.size) {
+                return false;
+            }
+            else {
+                for (int i = 0; i < this.size; i++) {
+                    if (this.array[i] != list.array[i]) return false;
+                }
+            }
+        }
+        return true;
     }
 }
