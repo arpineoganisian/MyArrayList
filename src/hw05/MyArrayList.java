@@ -78,24 +78,6 @@ public class MyArrayList<T> implements Iterable<T> {
         return -1;
     }
 
-    public Iterator<T> Iterator() {
-        return new Iterator<T>() {
-            int i = 0;
-            @Override
-            public boolean hasNext() {
-                return size != i;
-            }
-
-            @Override
-            public T next() {
-                if (hasNext()) {
-                    return(get(i++));
-                }
-                else throw new NoSuchElementException("No elements" + size);
-            }
-        };
-    }
-
     public T remove(int index) {
         T removed = (T)array[index];
         if (index > 0 && index < size) {
@@ -149,5 +131,23 @@ public class MyArrayList<T> implements Iterable<T> {
             }
         }
         return true;
+    }
+
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            int i = 0;
+            @Override
+            public boolean hasNext() {
+                return size != i;
+            }
+
+            @Override
+            public T next() {
+                if (hasNext()) {
+                    return(get(i++));
+                }
+                else throw new NoSuchElementException("No elements" + size);
+            }
+        };
     }
 }
