@@ -8,8 +8,6 @@ public class MyArrayList<T> implements Iterable<T> {
     private int  size;
     private int capacity;
     private T array[];
-//    в оригинальном создается Object для совместимости со старыми версиями,
-//    в нашем случае можно этого не делать
 
     public MyArrayList() {
         size = 0;
@@ -78,8 +76,8 @@ public class MyArrayList<T> implements Iterable<T> {
         return -1;
     }
 
-    public T remove(int index) {
-        T removed = (T)array[index];
+    public T delete(int index) {
+        T deleted = (T)array[index];
         if (index > 0 && index < size) {
             for (int i = index; i < size; i++) {
                 array[i] = array[i+1];
@@ -87,7 +85,7 @@ public class MyArrayList<T> implements Iterable<T> {
             size--;
         }
         //EXCEPTON
-        return removed;
+        return deleted;
     }
 
     public T set(int index, T element) {
@@ -147,6 +145,10 @@ public class MyArrayList<T> implements Iterable<T> {
                     return(get(i++));
                 }
                 else throw new NoSuchElementException("No elements" + size);
+            }
+            @Override
+            public void remove() {
+                delete(i);
             }
         };
     }
