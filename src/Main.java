@@ -1,5 +1,3 @@
-package hw05;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -48,8 +46,8 @@ public class Main {
         System.out.println("MY LIST  " + list2 + " ||| SIZE " + list2.size());
         list2.addAll(8, new ArrayList<>(Arrays.asList("123", "456", "789")));
         System.out.println("MY LIST   after addAll " + list2 + " ||| SIZE " + list2.size());
-        System.out.println("removed: " + list2.remove(10));
-        System.out.println("removed: " + list2.remove(5));
+        System.out.println("removed: " + list2.delete(10));
+        System.out.println("removed: " + list2.delete(5));
         System.out.println("MY LIST  after remove " + list2 + " ||| SIZE " + list2.size());
         System.out.println("set: " + list2.set(2, "KEK"));
         System.out.println("ORIGINAL after set " + list2 + " ||| SIZE " + list.size());
